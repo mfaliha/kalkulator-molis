@@ -438,6 +438,7 @@
         <div class="bdr"><div class="in">Servis berkala/bln</div><div class="col-b" id="bd-b-servis">—</div><div class="col-s">Rp 0 (gratis PM1–PM5)</div><div class="col-p">Rp 0 (gratis PM1–PM5)</div></div>
         <div class="bdr"><div class="in">Pajak STNK/bln</div><div class="col-b" id="bd-b-pajak">—</div><div class="col-s">Rp 2.917</div><div class="col-p">Rp 2.917</div></div>
         <div class="bdr btotal"><div class="in">Total Opex/Bulan</div><div class="col-b" id="bd-b-total">—</div><div class="col-s" id="bd-s-total">—</div><div class="col-p" id="bd-p-total">—</div></div>
+        <div class="bdr" style="font-size:12px;color:var(--mu);background:var(--bg2)"><div class="in" style="color:var(--mu)">Biaya per km</div><div id="bd-b-perkm">—</div><div id="bd-s-perkm">—</div><div id="bd-p-perkm">—</div></div>
       </div>
     </div>
 
@@ -825,6 +826,12 @@ function hitung(scroll=true){
   document.getElementById('bd-b-total').textContent=fmt(opexB)+'/bln';
   document.getElementById('bd-s-total').textContent=fmt(opexSewa)+'/bln';
   document.getElementById('bd-p-total').textContent=fmt(opexBeli)+'/bln';
+
+  // Rp per km
+  const fmtKm = n => 'Rp '+Math.round(n).toLocaleString('id-ID')+'/km';
+  document.getElementById('bd-b-perkm').textContent = fmtKm(opexB/km);
+  document.getElementById('bd-s-perkm').textContent = fmtKm(opexSewa/km);
+  document.getElementById('bd-p-perkm').textContent = fmtKm(opexBeli/km);
 }
 
 let bdOpen=true;
