@@ -4,6 +4,14 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kalkulator Molis — Hitung Hemat Motor Listrikmu</title>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FBLXDE7Z5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1FBLXDE7Z5');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet"/>
@@ -407,7 +415,7 @@
       ROI = selisih harga yang perlu dibayar ÷ penghematan opex/bulan.
     </div>
     <div class="cta">
-      <a href="https://www.alvaauto.com/product/alva-n3" target="_blank" class="btn btn-p">Lihat ALVA N3 →</a>
+      <a href="https://www.alvaauto.com/product/alva-n3" target="_blank" class="btn btn-p" onclick="gtag('event','lihat_alva_n3')">Lihat ALVA N3 →</a>
       <button class="btn btn-ref" onclick="showReferral()">🎁 Diskon Pakai Referral Saya</button>
       <button class="btn btn-o" onclick="resetForm()">Hitung Ulang</button>
     </div>
@@ -646,6 +654,15 @@ function hitung(scroll=true){
   if(!resultsVisible){ document.getElementById('results').style.display='block'; resultsVisible=true; }
   if(scroll) setTimeout(()=>document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'}),50);
 
+  // GA4: track hitung sekarang
+  if(scroll) gtag('event', 'hitung_sekarang', {
+    skenario: skenario,
+    motor_bensin: m.nama,
+    motor_listrik: ml.nama,
+    jarak_km_bulan: km,
+    skema_charging: document.getElementById('skemaCharging').value,
+  });
+
   const j=+document.getElementById('jarakHarian').value;
   const h=+document.getElementById('hariPakai').value;
   document.getElementById('jarakPill').innerHTML=
@@ -784,6 +801,7 @@ function showReferral(){
   const el=document.getElementById('referralOverlay');
   el.style.display='flex';
   document.body.style.overflow='hidden';
+  gtag('event', 'buka_referral');
 }
 function hideReferral(){
   document.getElementById('referralOverlay').style.display='none';
